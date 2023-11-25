@@ -28,6 +28,8 @@ async function run() {
     await client.connect();
     const database = client.db("CarGladge-DB");
     const Brand_Category = database.collection("Brand_Category");
+    const Product_Category = database.collection("Product_info");
+    
     // get 6 brand category item from database
     app.get('/categoryitem', async(req, res)=> {
        const cursor = Brand_Category.find();
@@ -35,6 +37,20 @@ async function run() {
        res.send(result);
     })
 
+
+    // load product from each brand
+    app.get('/brandproducts', async(req, res)=> {
+      const cursor = Product_Category.find();
+      const result = await cursor.toArray();
+      res.send(result);
+   })
+
+  // load a specific data based on Brand name
+  app.get('/brandproducts/:brand_name', async(req, res)=> {
+    const cursor = Product_Category.find();
+    const result = await cursor.toArray();
+    res.send(result);
+ })
 
 
     await client.db("admin").command({ ping: 1 });
