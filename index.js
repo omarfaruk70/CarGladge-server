@@ -106,8 +106,21 @@ async function run() {
   })
 
 
+  // loaded mycart data from the collection to show the ui
+  app.get('/mycart', async(req, res) => {
+    const cursor = myCart.find();
+    const result = await cursor.toArray();
+    res.send(result);
+  })
 
 
+  // load a specific car for deleted from mycart;
+  app.delete('/mycart/:id', async(req, res) => {
+    const id = req.params.id;
+    const query = {_id: new ObjectId(id)};
+    const result = myCart.deleteOne(query);
+    res.send(result);
+  })
 
 
 
