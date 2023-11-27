@@ -118,7 +118,7 @@ async function run() {
   app.delete('/mycart/:id', async(req, res) => {
     const id = req.params.id;
     const query = {_id: new ObjectId(id)};
-    const result = myCart.deleteOne(query);
+    const result = await myCart.deleteOne(query);
     res.send(result);
   })
 
