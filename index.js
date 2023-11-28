@@ -22,7 +22,7 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    await client.connect();
+
     const database = client.db("CarGladge-DB");
     const Brand_Category = database.collection("Brand_Category");
     const Product_Category = database.collection("Product_info");
@@ -36,7 +36,7 @@ async function run() {
     });
 
     // load all products
-    app.get("/brandproducts", async (req, res) => {
+    app.get("/", async (req, res) => {
       const cursor = Product_Category.find();
       const result = await cursor.toArray();
       res.send(result);
@@ -123,13 +123,10 @@ async function run() {
   })
 
 
-
-
-
-    await client.db("admin").command({ ping: 1 });
-    console.log(
-      "Pinged your deployment. You successfully connected to MongoDB!"
-    );
+    // // await client.db("admin").command({ ping: 1 });
+    // console.log(
+    //   "Pinged your deployment. You successfully connected to MongoDB!"
+    // );
   } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();
